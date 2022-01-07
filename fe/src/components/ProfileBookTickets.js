@@ -17,148 +17,18 @@ function ProfileBookTickets() {
     return state?.profile?.profileUser;
   });
 
-  // const profileUser1 = {
-  //   taiKhoan: "caotrongnghia",
-  //   hoTen: "Cao Trọng Nghĩa",
-  //   email: "18521138@gm.uit.edu.vn",
-  //   soDT: "0364857809",
-  //   loaiNguoiDung: "QuanTri",
-  //   maNhom: "GP01",
-  //   danhSachLichChieu: [
-  //     {
-  //       maLichChieu: 4,
-  //       maRap: 1,
-  //       ngayChieuGioChieu: "2021-11-12 17:56:03",
-  //       tenRap: "Rạp 1",
-  //       maChieu: 3,
-  //       thoiLuong: 0,
-  //       diaChi: "L5-Vincom 3/2, 3C Đường 3/2, Q.10",
-  //       tenCumRap: "BHD Star Cineplex - 3/2",
-  //       tenPhim: "in culpa vel",
-  //       hinhAnh: "http://localhost:8888/hinhanh/movie.jpg",
-  //       danhSachVe: [
-  //         {
-  //           maVe: 1,
-  //           maLichChieu: 4,
-  //           maGhe: 119,
-  //           tenGhe: "119",
-  //           giaVe: 90000,
-  //           loaiGhe: "Vip",
-  //         },
-  //         {
-  //           maVe: 2,
-  //           maLichChieu: 4,
-  //           maGhe: 120,
-  //           tenGhe: "120",
-  //           giaVe: 90000,
-  //           loaiGhe: "Vip",
-  //         },
-  //         {
-  //           maVe: 3,
-  //           maLichChieu: 4,
-  //           maGhe: 121,
-  //           tenGhe: "121",
-  //           giaVe: 90000,
-  //           loaiGhe: "Vip",
-  //         },
-  //         {
-  //           maVe: 4,
-  //           maLichChieu: 4,
-  //           maGhe: 48,
-  //           tenGhe: "48",
-  //           giaVe: 75000,
-  //           loaiGhe: "Thuong",
-  //         },
-  //         {
-  //           maVe: 5,
-  //           maLichChieu: 4,
-  //           maGhe: 107,
-  //           tenGhe: "107",
-  //           giaVe: 90000,
-  //           loaiGhe: "Vip",
-  //         },
-  //         {
-  //           maVe: 6,
-  //           maLichChieu: 4,
-  //           maGhe: 122,
-  //           tenGhe: "122",
-  //           giaVe: 90000,
-  //           loaiGhe: "Vip",
-  //         },
-  //       ],
-  //     },
-  //     {
-  //       maLichChieu: 1,
-  //       maRap: 11,
-  //       ngayChieuGioChieu: "2021-11-12 17:56:03",
-  //       tenRap: "Rạp 1",
-  //       maChieu: 7,
-  //       thoiLuong: 0,
-  //       diaChi: "L3-Bitexco Icon 68, 2 Hải Triều, Q.1",
-  //       tenCumRap: "BHD Star Cineplex - Bitexco",
-  //       tenPhim: "sed ex totam",
-  //       hinhAnh: "http://localhost:8888/hinhanh/movie.jpg",
-  //       danhSachVe: [
-  //         {
-  //           maVe: 7,
-  //           maLichChieu: 1,
-  //           maGhe: 120,
-  //           tenGhe: "120",
-  //           giaVe: 90000,
-  //           loaiGhe: "Vip",
-  //         },
-  //         {
-  //           maVe: 8,
-  //           maLichChieu: 1,
-  //           maGhe: 121,
-  //           tenGhe: "121",
-  //           giaVe: 90000,
-  //           loaiGhe: "Vip",
-  //         },
-  //       ],
-  //     },
-  //     {
-  //       maLichChieu: 2,
-  //       maRap: 1,
-  //       ngayChieuGioChieu: "2021-11-12 17:56:03",
-  //       tenRap: "Rạp 1",
-  //       maChieu: 1,
-  //       thoiLuong: 0,
-  //       diaChi: "L5-Vincom 3/2, 3C Đường 3/2, Q.10",
-  //       tenCumRap: "BHD Star Cineplex - 3/2",
-  //       tenPhim: "commodi officiis maxime",
-  //       hinhAnh: "http://localhost:8888/hinhanh/movie.jpg",
-  //       danhSachVe: [
-  //         {
-  //           maVe: 9,
-  //           maLichChieu: 2,
-  //           maGhe: 120,
-  //           tenGhe: "120",
-  //           giaVe: 90000,
-  //           loaiGhe: "Vip",
-  //         },
-  //         {
-  //           maVe: 10,
-  //           maLichChieu: 2,
-  //           maGhe: 121,
-  //           tenGhe: "121",
-  //           giaVe: 90000,
-  //           loaiGhe: "Vip",
-  //         },
-  //         {
-  //           maVe: 11,
-  //           maLichChieu: 2,
-  //           maGhe: 119,
-  //           tenGhe: "119",
-  //           giaVe: 90000,
-  //           loaiGhe: "Vip",
-  //         },
-  //       ],
-  //     },
-  //   ],
-  // };
-
   const [danhSachVe, setDanhSachVe] = useState();
+
+  const toCurrency = value => {
+    if (typeof value !== "number") {
+        return value;
+      }
+      var formatter = new Intl.NumberFormat("vi-VN", {
+        style: "currency",
+        currency: "VND"
+      });
+      return formatter.format(value);
+    };
 
   return (
     <>
@@ -188,40 +58,44 @@ function ProfileBookTickets() {
                 >
                   <div>
                     <h1>{lichChieu?.tenPhim}</h1>
-                    <p>
+                    <p style={{ margin: "8px 0px"}}>
                       <span style={{ fontWeight: "bold" }}>
-                        Ngày chiếu - giờ chiếu:
+                        Suất:
                       </span>
                       {format(
                         "dd/MM/yyyy - hh:mm",
                         new Date(lichChieu?.ngayChieuGioChieu)
                       )}
                     </p>
-                    <p>
+                    <p style={{ margin: "8px 0px"}}>
                       <span style={{ fontWeight: "bold" }}>Tên rạp:</span>{" "}
                       {lichChieu?.tenCumRap}
                     </p>
-                    <p>
+                    <p style={{ margin: "8px 0px"}}>
                       <span style={{ fontWeight: "bold" }}>Địa chỉ:</span>{" "}
                       {lichChieu?.diaChi}
+                    </p>
+                    <p style={{ margin: "8px 0px"}}>
+                      <span style={{ fontWeight: "bold"}}>Mô tả:</span>{" "}
+                      {lichChieu?.moTa}
                     </p>
                   </div>
                   <div
                     style={{
                       display: "flex",
                       alignItems: "center",
-                      justifyContent: "center",
+                      justifyContent: "flex-end",
                     }}
                   >
                     <Button
-                      style={{ width: "50%" }}
+                      style={{ }}
                       variant="contained"
                       color="primary"
                       onClick={() => {
                         setDanhSachVe(lichChieu?.danhSachVe);
                       }}
                     >
-                      Xem chi tiết
+                      Xem vé đã đặt
                     </Button>
                   </div>
                 </div>
@@ -230,7 +104,7 @@ function ProfileBookTickets() {
           })}
         </Grid>
         <Grid item lg={8} sm={4} xs={12}>
-          <TableContainer component={Paper} style={{ marginTop: "1em" }}>
+          <TableContainer component={Paper} style={{ marginTop: "1em", position: "sticky", top: "6em", }}>
             <Table aria-label="simple table">
               <TableHead>
                 <TableRow>
@@ -245,7 +119,7 @@ function ProfileBookTickets() {
                     <TableRow>
                       <TableCell align="left">{ve?.tenGhe}</TableCell>
                       <TableCell align="left">{ve?.loaiGhe}</TableCell>
-                      <TableCell align="left">{ve?.giaVe}</TableCell>
+                      <TableCell align="left">{toCurrency(ve?.giaVe)}</TableCell>
                     </TableRow>
                   );
                 })}

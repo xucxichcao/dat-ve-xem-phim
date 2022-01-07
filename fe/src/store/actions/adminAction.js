@@ -111,14 +111,10 @@ export const getListSearchUserPageAction = (
 ) => {
   return async (dispatch) => {
     try {
-      const token = JSON.parse(localStorage.getItem("token"));
       const res = await axios({
         method: "GET",
         url: `http://localhost:8888/api/QuanLyNguoiDung/TimKiemNguoiDungPhanTrang?MaNhom=${maNhom}&tuKhoa=${tuKhoa}&soTrang=${soTrang}&soPhanTuTrenTrang=${soPhanTuTrenTrang}`,
         data: "",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
       });
       //   console.log("data" ,res.data);
       dispatch({
@@ -174,15 +170,10 @@ export const addNewUserAction = (
 export const getListMoviePageAction = (maNhom, soTrang, soPhanTuTrenTrang) => {
   return async (dispatch) => {
     try {
-      const token = JSON.parse(localStorage.getItem("token"));
       const res = await axios({
         url: `http://localhost:8888/api/QuanLyPhim/LayDanhSachPhimPhanTrang?maNhom=${maNhom}&soTrang=${soTrang}&soPhanTuTrenTrang=${soPhanTuTrenTrang}`,
         method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
       });
-
       //   console.log(res.data);
       dispatch({
         type: GET_LIST_MOVIE_PAGE,
@@ -274,7 +265,7 @@ export const addNewMovieAction = (
           Authorization: `Bearer ${token}`,
         },
       });
-      alert("thêm phim thành công");
+      alert("Thêm phim thành công");
       dispatch(
         await getListMoviePageAction(maNhom, soTrang, soPhanTuTrenTrang)
       );
@@ -293,13 +284,9 @@ export const addNewMovieAction = (
 export const getRapChieuAdminAction = (maPhim) => {
   return async (dispatch) => {
     try {
-      const token = JSON.parse(localStorage.getItem("token"));
       const res = await axios({
         url: `http://localhost:8888/api/QuanLyRap/LayThongTinLichChieuPhim?MaPhim=${maPhim}`,
         method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
       });
       dispatch({
         type: GET_RAP_CHIEU_ADMIN,

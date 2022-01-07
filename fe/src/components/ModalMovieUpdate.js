@@ -4,7 +4,13 @@ import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import { useDispatch } from "react-redux";
-import { Button, Grid, TextField } from "@material-ui/core";
+import {
+  Button,
+  Checkbox,
+  FormControlLabel,
+  Grid,
+  TextField,
+} from "@material-ui/core";
 import { updateMovieAction } from "../store/actions/adminAction";
 
 const useStyles = makeStyles((theme) => ({
@@ -42,6 +48,14 @@ export default function ModalMovieUpdate(props) {
     });
   };
 
+  const handleChangeCheckbox = (e) => {
+    const { name, checked } = e.target;
+    setMovie({
+      ...movie,
+      [name]: checked ? 1 : 0,
+    });
+  };
+
   const handlechangeHinhAnh = (e) => {
     setMovie({
       ...movie,
@@ -53,7 +67,15 @@ export default function ModalMovieUpdate(props) {
     e.preventDefault();
     var form_data = new FormData();
     for (var key in movie) {
-      form_data.append(key, movie[key]);
+      if (movie[key] !== undefined && key !== "ngayKhoiChieu")
+        form_data.append(key, movie[key]);
+      if (key === "ngayKhoiChieu") {
+        var splitted = movie[key].split("/");
+        form_data.append(
+          key,
+          splitted[2] + "/" + splitted[1] + "/" + splitted[0]
+        );
+      }
     }
     dispatch(
       updateMovieAction(form_data, index, maNhom, soTrang, soPhanTuTrenTrang)
@@ -80,20 +102,6 @@ export default function ModalMovieUpdate(props) {
               <Grid item xs={12}>
                 <TextField
                   className={classes.textField}
-                  autoComplete="maPhim"
-                  name="maPhim"
-                  variant="outlined"
-                  required
-                  label="Mã phim"
-                  autoFocus
-                  fullWidth
-                  value={movie.maPhim}
-                  onChange={handlechange}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  className={classes.textField}
                   autoComplete="tenPhim"
                   name="tenPhim"
                   variant="outlined"
@@ -105,20 +113,7 @@ export default function ModalMovieUpdate(props) {
                   onChange={handlechange}
                 />
               </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  className={classes.textField}
-                  autoComplete="biDanh"
-                  name="biDanh"
-                  variant="outlined"
-                  required
-                  label="Bí danh"
-                  autoFocus
-                  fullWidth
-                  value={movie.biDanh}
-                  onChange={handlechange}
-                />
-              </Grid>
+
               <Grid item xs={12}>
                 <TextField
                   className={classes.textField}
@@ -131,6 +126,20 @@ export default function ModalMovieUpdate(props) {
                   fullWidth
                   value={movie.trailer}
                   onChange={handlechange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <FormControlLabel
+                  style={{ marginLeft: "0px" }}
+                  control={
+                    <Checkbox
+                      checked={movie.dangChieu}
+                      name="dangChieu"
+                      onChange={handleChangeCheckbox}
+                    />
+                  }
+                  label="Đang chiếu?"
+                  labelPlacement="start"
                 />
               </Grid>
               <Grid item xs={12}>
@@ -162,24 +171,7 @@ export default function ModalMovieUpdate(props) {
                   onChange={handlechange}
                 />
               </Grid>
-              <Grid item xs={12}>
-                <select
-                  name="maNhom"
-                  onChange={handlechange}
-                  value={movie.maNhom}
-                >
-                  <option>GP01</option>
-                  <option>GP02</option>
-                  <option>GP03</option>
-                  <option>GP04</option>
-                  <option>GP05</option>
-                  <option>GP06</option>
-                  <option>GP07</option>
-                  <option>GP08</option>
-                  <option>GP09</option>
-                  <option>GP10</option>
-                </select>
-              </Grid>
+
               <Grid item xs={12}>
                 <TextField
                   className={classes.textField}
@@ -187,10 +179,24 @@ export default function ModalMovieUpdate(props) {
                   name="ngayKhoiChieu"
                   variant="outlined"
                   required
-                  label="Ngày khởi chiếu"
+                  label="Ngày khởi chiếu (dd/MM/yyyy)"
                   autoFocus
                   fullWidth
                   value={movie.ngayKhoiChieu}
+                  onChange={handlechange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  className={classes.textField}
+                  autoComplete="thoiLuong"
+                  name="thoiLuong"
+                  variant="outlined"
+                  required
+                  label="Thời lượng"
+                  autoFocus
+                  fullWidth
+                  value={movie.thoiLuong}
                   onChange={handlechange}
                 />
               </Grid>

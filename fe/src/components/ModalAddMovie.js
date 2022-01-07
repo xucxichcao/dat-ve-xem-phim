@@ -4,7 +4,13 @@ import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import { useDispatch } from "react-redux";
-import { Button, Grid, TextField } from "@material-ui/core";
+import {
+  Button,
+  Checkbox,
+  FormControlLabel,
+  Grid,
+  TextField,
+} from "@material-ui/core";
 import { addNewMovieAction } from "../store/actions/adminAction";
 
 const useStyles = makeStyles((theme) => ({
@@ -32,22 +38,34 @@ export default function ModalAddMovie(props) {
   const classes = useStyles();
 
   const [movie, setMovie] = useState({
-    maPhim: "",
     tenPhim: "",
-    biDanh: "",
     trailer: "",
     hinhAnh: "",
     moTa: "",
     maNhom: "GP01",
     ngayKhoiChieu: "",
     danhGia: "",
+    thoiLuong: "",
+    dangChieu: "0",
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === "hinhAnh") {
       setMovie({
-        hinhAnh: e.target.files[0],
+        ...movie,
+        [name]: e.target.files[0],
+      });
+    } else if (name === "dangChieu") {
+      setMovie({
+        ...movie,
+        [name]: e.target.checked ? 1 : 0,
+      });
+    } else if (name === "ngayKhoiChieu") {
+      var splitted = value.split("/");
+      setMovie({
+        ...movie,
+        [name]: splitted[2] + "/" + splitted[1] + "/" + splitted[0],
       });
     } else {
       setMovie({
@@ -64,15 +82,13 @@ export default function ModalAddMovie(props) {
       form_data.append(key, movie[key]);
     }
     if (
-      movie.maPhim !== "" &&
       movie.tenPhim !== "" &&
-      movie.biDanh !== "" &&
       movie.trailer !== "" &&
       movie.hinhAnh !== "" &&
       movie.moTa !== "" &&
-      movie.maNhom !== "" &&
       movie.ngayKhoiChieu !== "" &&
-      movie.danhGia !== ""
+      movie.danhGia !== "" &&
+      movie.thoiLuong !== ""
     ) {
       dispatch(
         addNewMovieAction(form_data, maNhom, soTrang, soPhanTuTrenTrang)
@@ -102,19 +118,6 @@ export default function ModalAddMovie(props) {
               <Grid item xs={12}>
                 <TextField
                   className={classes.textField}
-                  autoComplete="maPhim"
-                  name="maPhim"
-                  variant="outlined"
-                  required
-                  label="Mã phim"
-                  autoFocus
-                  fullWidth
-                  onChange={handleChange}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  className={classes.textField}
                   autoComplete="tenPhim"
                   name="tenPhim"
                   variant="outlined"
@@ -128,27 +131,27 @@ export default function ModalAddMovie(props) {
               <Grid item xs={12}>
                 <TextField
                   className={classes.textField}
-                  autoComplete="biDanh"
-                  name="biDanh"
-                  variant="outlined"
-                  required
-                  label="Bí danh"
-                  autoFocus
-                  fullWidth
-                  onChange={handleChange}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  className={classes.textField}
                   autoComplete="trailer"
                   name="trailer"
                   variant="outlined"
                   required
                   label="Trailer"
-                  autoFocus
                   fullWidth
                   onChange={handleChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <FormControlLabel
+                  style={{ marginLeft: "0px" }}
+                  control={
+                    <Checkbox
+                      checked={movie.dangChieu}
+                      name="dangChieu"
+                      onChange={handleChange}
+                    />
+                  }
+                  label="Đang chiếu?"
+                  labelPlacement="start"
                 />
               </Grid>
               <Grid item xs={12}>
@@ -158,8 +161,6 @@ export default function ModalAddMovie(props) {
                   name="hinhAnh"
                   variant="outlined"
                   required
-                  label="Hình ảnh"
-                  autoFocus
                   fullWidth
                   onChange={handleChange}
                   type="file"
@@ -173,28 +174,9 @@ export default function ModalAddMovie(props) {
                   variant="outlined"
                   required
                   label="Mô tả"
-                  autoFocus
                   fullWidth
                   onChange={handleChange}
                 />
-              </Grid>
-              <Grid item xs={12}>
-                <select
-                  name="maNhom"
-                  onChange={handleChange}
-                  value={movie.maNhom}
-                >
-                  <option>GP01</option>
-                  <option>GP02</option>
-                  <option>GP03</option>
-                  <option>GP04</option>
-                  <option>GP05</option>
-                  <option>GP06</option>
-                  <option>GP07</option>
-                  <option>GP08</option>
-                  <option>GP09</option>
-                  <option>GP10</option>
-                </select>
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -203,8 +185,19 @@ export default function ModalAddMovie(props) {
                   name="ngayKhoiChieu"
                   variant="outlined"
                   required
-                  label="Ngày khởi chiếu"
-                  autoFocus
+                  label="Ngày khởi chiếu (dd/MM/yyyy)"
+                  fullWidth
+                  onChange={handleChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  className={classes.textField}
+                  autoComplete="thoiLuong"
+                  name="thoiLuong"
+                  variant="outlined"
+                  required
+                  label="Thời lượng phim"
                   fullWidth
                   onChange={handleChange}
                 />
@@ -217,7 +210,6 @@ export default function ModalAddMovie(props) {
                   variant="outlined"
                   required
                   label="Đánh giá"
-                  autoFocus
                   fullWidth
                   onChange={handleChange}
                 />

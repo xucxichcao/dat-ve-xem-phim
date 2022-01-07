@@ -40,7 +40,7 @@ export const updateProfileUserAction = (user) => {
       const token = JSON.parse(localStorage.getItem("token"));
 
       const res = await axios({
-        url: "http://localhost:8888/api/QuanLyNguoiDung/CapNhatThongTinNguoiDung",
+        url: "http://localhost:8888/api/QuanLyNguoiDung/UserCapNhatThongTin",
         method: "PUT",
         data: user,
         headers: {

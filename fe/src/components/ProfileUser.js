@@ -3,7 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
-import { Container, makeStyles, withStyles } from "@material-ui/core";
+import {
+  Container,
+  InputLabel,
+  makeStyles,
+  withStyles,
+} from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import { Button, Grid } from "@material-ui/core";
 import { FormLabel } from "@material-ui/core";
@@ -45,7 +50,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: deepOrange[500],
   },
   text: {
-    marginTop: "1em",
+    marginBottom: "1em",
+    marginTop: "0.2em",
     color: "black !important",
   },
   title: {
@@ -95,44 +101,36 @@ function ProfileUser() {
               md={12}
               style={{ display: "flex", flexDirection: "column" }}
             >
+              <InputLabel>Tài khoản</InputLabel>
               <TextField
                 className={classes.text}
                 id="outlined-basic"
-                label="Tài khoản"
                 variant="outlined"
                 value={profileUser.taiKhoan}
                 disabled
               />
+              <InputLabel>Họ tên</InputLabel>
               <TextField
                 className={classes.text}
                 id="outlined-basic"
-                label="Họ tên"
                 variant="outlined"
                 value={profileUser.hoTen}
                 disabled
               />
+              <InputLabel>Email</InputLabel>
               <TextField
                 className={classes.text}
                 id="outlined-basic"
-                label="Email"
                 variant="outlined"
                 value={profileUser.email}
                 disabled
               />
+              <InputLabel>Số điện thoại</InputLabel>
               <TextField
                 className={classes.text}
                 id="outlined-basic"
-                label="Số điện thoại"
                 variant="outlined"
                 value={profileUser.soDT}
-                disabled
-              />
-              <TextField
-                className={classes.text}
-                id="outlined-basic"
-                label="Mã nhóm"
-                variant="outlined"
-                value={profileUser.maNhom}
                 disabled
               />
             </Grid>
@@ -152,12 +150,10 @@ function ProfileUser() {
                 color="secondary"
                 onClick={() => {
                   changeUserDetail(
-                    profileUser.taiKhoan,
                     profileUser.matKhau,
                     profileUser.hoTen,
                     profileUser.email,
-                    profileUser.soDT,
-                    profileUser.maNhom
+                    profileUser.soDT
                   );
                 }}
               >
@@ -173,25 +169,19 @@ function ProfileUser() {
   // ------------------------ MODAL UPDATE USER --------------------
 
   const [user, setUser] = useState({
-    taiKhoan: "",
     matKhau: "",
     email: "",
     soDt: "",
-    maNhom: "",
-    maLoaiNguoiDung: "KhachHang",
     hoTen: "",
   });
-  const changeUserDetail = (taiKhoan, matKhau, hoTen, email, soDt, maNhom) => {
+  const changeUserDetail = (matKhau, hoTen, email, soDt) => {
     setOpen(true);
     // console.log(taiKhoan, matKhau, hoTen, email, soDT);
     setUser({
-      taiKhoan: taiKhoan,
       matKhau: matKhau,
       hoTen: hoTen,
       email: email,
       soDt: soDt,
-      maLoaiNguoiDung: "KhachHang",
-      maNhom: maNhom,
     });
   };
   const [open, setOpen] = useState(false);
@@ -236,14 +226,13 @@ function ProfileUser() {
               <h2>Thay đổi thông tin tài khoản</h2>
             </Grid>
             <div style={inputStyle}>
-              <FormLabel style={{ color: "white" }}>Tài khoản:</FormLabel>
+              <FormLabel style={{ color: "white" }}>Họ tên:</FormLabel>
               <CssTextField
                 fullWidth
                 required
-                name="taiKhoan"
+                name="hoTen"
                 onChange={handleChange}
-                value={user.taiKhoan}
-                disabled={true}
+                value={user.hoTen}
               ></CssTextField>
             </div>
             <div style={inputStyle}>
@@ -275,16 +264,6 @@ function ProfileUser() {
                 name="soDt"
                 onChange={handleChange}
                 value={user.soDt}
-              ></CssTextField>
-            </div>
-            <div style={inputStyle}>
-              <FormLabel style={{ color: "white" }}>Họ tên:</FormLabel>
-              <CssTextField
-                fullWidth
-                required
-                name="hoTen"
-                onChange={handleChange}
-                value={user.hoTen}
               ></CssTextField>
             </div>
             <Button

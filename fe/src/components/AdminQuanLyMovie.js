@@ -167,7 +167,7 @@ function AdminQuanLyMovie() {
           </TableCell>
           <TableCell>{movie.moTa}</TableCell>
           <TableCell>
-            {format("dd/MM/yyyy - hh:mm", new Date(movie.ngayKhoiChieu))}
+            {format("dd/MM/yyyy", new Date(movie.ngayKhoiChieu))}
           </TableCell>
           <TableCell>{movie.danhGia}</TableCell>
           <TableCell>
@@ -216,16 +216,18 @@ function AdminQuanLyMovie() {
 
   const handleUpdate = (movie, index) => {
     setOpen(true);
+    var nkc = movie.ngayKhoiChieu.split(" ")[0].split("-");
+
     setMovie({
       maPhim: movie.maPhim,
       tenPhim: movie.tenPhim,
-      biDanh: movie.biDanh,
       trailer: movie.trailer,
-      hinhAnh: {},
+      hinhAnh: undefined,
       moTa: movie.moTa,
-      maNhom: maNhom,
-      ngayKhoiChieu: movie.ngayKhoiChieu,
+      ngayKhoiChieu: nkc[2] + "/" + nkc[1] + "/" + nkc[0],
       danhGia: movie.danhGia,
+      dangChieu: movie.dangChieu,
+      thoiLuong: movie.thoiLuong,
     });
     setIndex(index);
   };
