@@ -460,7 +460,7 @@ function BookingPage() {
                   <div style={{ width: "100%" }}>
                     <img
                       style={{ width: "100%", minWidth: 700 }}
-                      src="https://tix.vn/app/assets/img/icons/screen.png"
+                      src="/images/man-hinh.png"
                       alt="123"
                     />
                   </div>

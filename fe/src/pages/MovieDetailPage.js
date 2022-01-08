@@ -52,7 +52,7 @@ function MovieDetailPage() {
 
   useEffect(() => {
     getMovieDetail();
-  });
+  }, []);
 
   const [selectedTab, setSelectedTab] = useState(0);
   console.log(selectedTab);

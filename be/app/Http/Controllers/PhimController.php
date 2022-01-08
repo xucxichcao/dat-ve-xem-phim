@@ -212,7 +212,7 @@ class PhimController extends Controller
             return response()->json(['status' => 'error', 'message' => 'Vui lòng nhập mã phim'], 400);
         } else if (Phim::where('maPhim', $maPhim)->exists()) {
             $data = new stdClass;
-            $phim = Phim::where('maPhim', $maPhim)->get(['maPhim', 'tenPhim', 'biDanh', 'trailer', 'hinhAnh', 'moTa', 'dangChieu', 'ngayKhoiChieu', 'danhGia', 'thoiLuong']);
+            $phim = Phim::where('maPhim', $maPhim)->get(['maPhim', 'tenPhim', 'biDanh', 'trailer', 'hinhAnh', 'moTa', 'dangChieu', 'ngayKhoiChieu', 'danhGia', 'thoiLuong'])->first();
             $data = $phim;
             return response()->json($data);
         }
