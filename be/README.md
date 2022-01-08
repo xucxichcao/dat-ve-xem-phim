@@ -24,6 +24,6 @@ Tạo JWT_KEY tương ứng cho JWT
 Chạy project
 <pre><code>> php -S localhost:8888 -t public</code></pre>
 
-Đăng ký tài khoản thông qua front-end, sau đó vào phpmyadmin sửa tài khoản như sau:
+Đăng ký tài khoản thông qua front-end, sau đó vào phpmyadmin sửa tài khoản như sau để có tài khoản quản trị viên:
 <pre><code>maLoaiNguoiDung: QuanTri
 staff: 1</code></pre>
