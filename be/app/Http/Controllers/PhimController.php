@@ -207,7 +207,7 @@ class PhimController extends Controller
 
     public function layThongTinPhim(Request $request)
     {
-        $maPhim = $request->maPhim;
+        $maPhim = $request->MaPhim;
         if (!isset($maPhim)) {
             return response()->json(['status' => 'error', 'message' => 'Vui lòng nhập mã phim'], 400);
         } else if (Phim::where('maPhim', $maPhim)->exists()) {

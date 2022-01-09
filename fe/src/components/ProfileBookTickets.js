@@ -19,16 +19,16 @@ function ProfileBookTickets() {
 
   const [danhSachVe, setDanhSachVe] = useState();
 
-  const toCurrency = value => {
+  const toCurrency = (value) => {
     if (typeof value !== "number") {
-        return value;
-      }
-      var formatter = new Intl.NumberFormat("vi-VN", {
-        style: "currency",
-        currency: "VND"
-      });
-      return formatter.format(value);
-    };
+      return value;
+    }
+    var formatter = new Intl.NumberFormat("vi-VN", {
+      style: "currency",
+      currency: "VND",
+    });
+    return formatter.format(value);
+  };
 
   return (
     <>
@@ -54,29 +54,28 @@ function ProfileBookTickets() {
                     flexDirection: "column",
                     marginLeft: "1em",
                     justifyContent: "space-between",
+                    maxWidth: "50%",
                   }}
                 >
                   <div>
                     <h1>{lichChieu?.tenPhim}</h1>
-                    <p style={{ margin: "8px 0px"}}>
-                      <span style={{ fontWeight: "bold" }}>
-                        Suất:
-                      </span>
+                    <p style={{ margin: "8px 0px" }}>
+                      <span style={{ fontWeight: "bold" }}>Suất:</span>
                       {format(
                         "dd/MM/yyyy - hh:mm",
                         new Date(lichChieu?.ngayChieuGioChieu)
                       )}
                     </p>
-                    <p style={{ margin: "8px 0px"}}>
+                    <p style={{ margin: "8px 0px" }}>
                       <span style={{ fontWeight: "bold" }}>Tên rạp:</span>{" "}
                       {lichChieu?.tenCumRap}
                     </p>
-                    <p style={{ margin: "8px 0px"}}>
+                    <p style={{ margin: "8px 0px" }}>
                       <span style={{ fontWeight: "bold" }}>Địa chỉ:</span>{" "}
                       {lichChieu?.diaChi}
                     </p>
-                    <p style={{ margin: "8px 0px"}}>
-                      <span style={{ fontWeight: "bold"}}>Mô tả:</span>{" "}
+                    <p style={{ margin: "8px 0px" }}>
+                      <span style={{ fontWeight: "bold" }}>Mô tả:</span>{" "}
                       {lichChieu?.moTa}
                     </p>
                   </div>
@@ -88,7 +87,7 @@ function ProfileBookTickets() {
                     }}
                   >
                     <Button
-                      style={{ }}
+                      style={{}}
                       variant="contained"
                       color="primary"
                       onClick={() => {
@@ -104,7 +103,10 @@ function ProfileBookTickets() {
           })}
         </Grid>
         <Grid item lg={8} sm={4} xs={12}>
-          <TableContainer component={Paper} style={{ marginTop: "1em", position: "sticky", top: "6em", }}>
+          <TableContainer
+            component={Paper}
+            style={{ marginTop: "1em", position: "sticky", top: "6em" }}
+          >
             <Table aria-label="simple table">
               <TableHead>
                 <TableRow>
@@ -119,7 +121,9 @@ function ProfileBookTickets() {
                     <TableRow>
                       <TableCell align="left">{ve?.tenGhe}</TableCell>
                       <TableCell align="left">{ve?.loaiGhe}</TableCell>
-                      <TableCell align="left">{toCurrency(ve?.giaVe)}</TableCell>
+                      <TableCell align="left">
+                        {toCurrency(ve?.giaVe)}
+                      </TableCell>
                     </TableRow>
                   );
                 })}

@@ -8,6 +8,7 @@ use App\Models\HeThongRap;
 use App\Models\LichChieu;
 use App\Models\Phim;
 use App\Models\Rap;
+use DateTime;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
@@ -16,7 +17,7 @@ class LichChieuController extends Controller
     public function taoLichChieu(Request $request)
     {
         $maPhim = $request->maPhim;
-        $ngayChieuGioChieu = $request->ngayChieuGioChieu;
+        $ngayChieuGioChieu = DateTime::createFromFormat('d/m/Y H:i:s', $request->ngayChieuGioChieu)->format('Y-m-d H:i:s');
         $maRap = $request->maRap;
         $giaVe = $request->giaVe;
         $thoiLuong = Phim::where('maPhim', $maPhim)->first()->thoiLuong;
